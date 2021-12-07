@@ -1,17 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
-import ClassCounter from './components/ClassCounter';
-import Counter from './components/Counter';
+import '../src/styles/App.css';
 
 function App() {
-  const [value, setValue] = useState('');
-  const arr = [, , , ,];
-
   return (
-    <div>
-      <input value={value} onChange={(event) => setValue(event.target.value)} />
-      <button onClick={() => console.log()}>On console</button>
-      <ClassCounter />
+    <div className="App">
+      <div className="post">
+        <div className="post__content">
+          <strong>1. JavaScript</strong>
+          <div>JavaScript is a programming language</div>
+        </div>
+        <div className="post__btns">
+          <button>Delete</button>
+        </div>
+      </div>
     </div>
   );
 }
