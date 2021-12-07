@@ -11,9 +11,18 @@ function App() {
     { id: 3, title: 'C#', body: 'Language for .NET, Unity' },
     { id: 4, title: 'C#', body: 'Language for .NET, Unity' },
   ]);
+
+  const [posts1, setPosts2] = useState([
+    { id: 1, title: 'JavaScript', body: 'Great Language' },
+    { id: 2, title: 'Python', body: 'BackEnd Language' },
+    { id: 3, title: 'C', body: 'Language' },
+    { id: 4, title: 'C', body: 'Language' },
+  ]);
+
   return (
     <div className="App">
       <PostList posts={posts} title="Posts List" />
+      <PostList posts={posts1} title="Posts List1" />
     </div>
   );
 }
