@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import ClassCounter from './components/ClassCounter';
 import Counter from './components/Counter';
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
     <div>
       <input value={value} onChange={(event) => setValue(event.target.value)} />
       <button onClick={() => console.log()}>On console</button>
-      <Counter />
+      <ClassCounter />
     </div>
   );
 }
