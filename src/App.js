@@ -25,14 +25,16 @@ function App() {
   return (
     <div className="App">
       <form>
+        {/* Managed Input (useState, onChange) */}
         <MyInput
           value={title}
           onChange={(event) => setTitle(event.target.value)}
           type="text"
           placeholder="Post Title"
         />
-        <input ref={bodyInputRef} />
-        <MyInput placeholder="Post Text" />
+
+        {/* Unmanaged input (useFef, React.forwardRef(for own UI components)) */}
+        <MyInput ref={bodyInputRef} placeholder="Post Text" />
         <MyButton onClick={addNewPost}>Delete Post</MyButton>
         <PostList posts={posts} title="Posts List" />
       </form>
