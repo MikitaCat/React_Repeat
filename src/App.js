@@ -15,17 +15,21 @@ function App() {
   ]);
 
   const [title, setTitle] = useState('');
-  const bodyInputRef = useRef();
+  const [body, setBody] = useState('');
 
   const addNewPost = (event) => {
     event.preventDefault();
-    console.log(bodyInputRef);
+    const obj = {
+      title: title,
+      body: body,
+    };
+
+    console.log(obj);
   };
 
   return (
     <div className="App">
       <form>
-        {/* Managed Input (useState, onChange) */}
         <MyInput
           value={title}
           onChange={(event) => setTitle(event.target.value)}
@@ -33,9 +37,12 @@ function App() {
           placeholder="Post Title"
         />
 
-        {/* Unmanaged input (useFef, React.forwardRef(for own UI components)) */}
-        <MyInput ref={bodyInputRef} placeholder="Post Text" />
-        <MyButton onClick={addNewPost}>Delete Post</MyButton>
+        <MyInput
+          value={body}
+          onChange={(event) => setBody(event.target.value)}
+          placeholder="Post Text"
+        />
+        <MyButton onClick={addNewPost}>Create Post</MyButton>
         <PostList posts={posts} title="Posts List" />
       </form>
     </div>
