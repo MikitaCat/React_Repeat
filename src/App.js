@@ -1,7 +1,6 @@
 import React from 'react';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import '../src/styles/App.css';
-import PostItem from './components/PostItem';
 import PostList from './components/PostList';
 import MyButton from './components/UI/Button/MyButton';
 import MyInput from './components/UI/Input/MyInput';
@@ -24,8 +23,9 @@ function App() {
       title: title,
       body: body,
     };
-
     setPosts([newPost, ...posts]);
+    setTitle('');
+    setBody('');
   };
 
   return (
