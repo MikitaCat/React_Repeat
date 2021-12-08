@@ -4,6 +4,7 @@ import '../src/styles/App.css';
 import PostItem from './components/PostItem';
 import PostList from './components/PostList';
 import MyButton from './components/UI/Button/MyButton';
+import MyInput from './components/UI/Input/MyInput';
 
 function App() {
   const [posts, setPosts] = useState([
@@ -15,8 +16,8 @@ function App() {
 
   return (
     <div className="App">
-      <input placeholder="Post Title" />
-      <input placeholder="Post Text" />
+      <MyInput placeholder="Post Title" />
+      <MyInput placeholder="Post Text" />
       <MyButton>Delete Post</MyButton>
       <PostList posts={posts} title="Posts List" />
     </div>
