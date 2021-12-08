@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import '../src/styles/App.css';
 import PostItem from './components/PostItem';
 import PostList from './components/PostList';
@@ -15,10 +15,11 @@ function App() {
   ]);
 
   const [title, setTitle] = useState('');
+  const bodyInputRef = useRef();
 
   const addNewPost = (event) => {
     event.preventDefault();
-    console.log(event.target);
+    console.log(bodyInputRef);
   };
 
   return (
@@ -30,6 +31,7 @@ function App() {
           type="text"
           placeholder="Post Title"
         />
+        <input ref={bodyInputRef} />
         <MyInput placeholder="Post Text" />
         <MyButton onClick={addNewPost}>Delete Post</MyButton>
         <PostList posts={posts} title="Posts List" />
