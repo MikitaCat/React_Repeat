@@ -1,9 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import '../src/styles/App.css';
+import PostForm from './components/PostForm';
 import PostList from './components/PostList';
-import MyButton from './components/UI/Button/MyButton';
-import MyInput from './components/UI/Input/MyInput';
 
 function App() {
   const [posts, setPosts] = useState([
@@ -13,35 +12,20 @@ function App() {
     { id: 4, title: 'C#', body: 'Language for .NET, Unity' },
   ]);
 
-  // const [title, setTitle] = useState('');
-  // const [body, setBody] = useState('');
+  // const addNewPost = (event) => {
+  //   event.preventDefault();
+  //   setPosts([{ id: Date.now(), ...post }, ...posts]);
+  //   setPost({ title: '', body: '' });
+  // };
 
-  const [post, setPost] = useState({ title: '', body: '' });
-
-  const addNewPost = (event) => {
-    event.preventDefault();
+  const createPost = (post) => {
     setPosts([{ id: Date.now(), ...post }, ...posts]);
-    setPost({ title: '', body: '' });
   };
 
   return (
     <div className="App">
-      <form>
-        <MyInput
-          value={post.title}
-          onChange={(event) => setPost({ ...post, title: event.target.value })}
-          type="text"
-          placeholder="Post Title"
-        />
-
-        <MyInput
-          value={post.body}
-          onChange={(event) => setPost({ ...post, body: event.target.value })}
-          placeholder="Post Text"
-        />
-        <MyButton onClick={addNewPost}>Create Post</MyButton>
-        <PostList posts={posts} title="Posts List" />
-      </form>
+      <PostForm create={createPost} />
+      <PostList posts={posts} title="Posts List" />
     </div>
   );
 }
