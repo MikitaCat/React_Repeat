@@ -3,6 +3,7 @@ import { useState } from 'react';
 import '../src/styles/App.css';
 import PostItem from './components/PostItem';
 import PostList from './components/PostList';
+import MyButton from './components/UI/Button/MyButton';
 
 function App() {
   const [posts, setPosts] = useState([
@@ -12,17 +13,12 @@ function App() {
     { id: 4, title: 'C#', body: 'Language for .NET, Unity' },
   ]);
 
-  const [posts1, setPosts2] = useState([
-    { id: 1, title: 'JavaScript', body: 'Great Language' },
-    { id: 2, title: 'Python', body: 'BackEnd Language' },
-    { id: 3, title: 'C', body: 'Language' },
-    { id: 4, title: 'C', body: 'Language' },
-  ]);
-
   return (
     <div className="App">
+      <input placeholder="Post Title" />
+      <input placeholder="Post Text" />
+      <MyButton>Delete Post</MyButton>
       <PostList posts={posts} title="Posts List" />
-      <PostList posts={posts1} title="Posts List1" />
     </div>
   );
 }
