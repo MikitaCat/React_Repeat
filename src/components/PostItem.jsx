@@ -2,11 +2,12 @@ import React from 'react';
 
 function PostItem(props) {
   const { id, title, body } = props.post;
+  const { number } = props;
   return (
     <div className="post">
       <div className="post__content">
         <strong>
-          {id} {title}
+          {number}. {title}
         </strong>
         <div>{body}</div>
       </div>

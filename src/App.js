@@ -19,12 +19,13 @@ function App() {
 
   const addNewPost = (event) => {
     event.preventDefault();
-    const obj = {
+    const newPost = {
+      id: Date.now(),
       title: title,
       body: body,
     };
 
-    console.log(obj);
+    setPosts([newPost, ...posts]);
   };
 
   return (
