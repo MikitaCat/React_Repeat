@@ -18,8 +18,8 @@ function App() {
   //   setPost({ title: '', body: '' });
   // };
 
-  const createPost = (post) => {
-    setPosts([{ id: Date.now(), ...post }, ...posts]);
+  const createPost = (newPost) => {
+    setPosts([newPost, ...posts]);
   };
 
   return (
