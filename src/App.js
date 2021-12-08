@@ -14,12 +14,26 @@ function App() {
     { id: 4, title: 'C#', body: 'Language for .NET, Unity' },
   ]);
 
+  const [title, setTitle] = useState('');
+
+  const addNewPost = (event) => {
+    event.preventDefault();
+    console.log(event.target);
+  };
+
   return (
     <div className="App">
-      <MyInput placeholder="Post Title" />
-      <MyInput placeholder="Post Text" />
-      <MyButton>Delete Post</MyButton>
-      <PostList posts={posts} title="Posts List" />
+      <form>
+        <MyInput
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+          type="text"
+          placeholder="Post Title"
+        />
+        <MyInput placeholder="Post Text" />
+        <MyButton onClick={addNewPost}>Delete Post</MyButton>
+        <PostList posts={posts} title="Posts List" />
+      </form>
     </div>
   );
 }
