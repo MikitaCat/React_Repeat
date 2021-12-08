@@ -13,34 +13,34 @@ function App() {
     { id: 4, title: 'C#', body: 'Language for .NET, Unity' },
   ]);
 
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  // const [title, setTitle] = useState('');
+  // const [body, setBody] = useState('');
+
+  const [post, setPost] = useState({ title: '', body: '' });
 
   const addNewPost = (event) => {
     event.preventDefault();
     const newPost = {
       id: Date.now(),
-      title: title,
-      body: body,
+      ...post,
     };
     setPosts([newPost, ...posts]);
-    setTitle('');
-    setBody('');
+    setPost({ title: '', body: '' });
   };
 
   return (
     <div className="App">
       <form>
         <MyInput
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
+          value={post.title}
+          onChange={(event) => setPost({ ...post, title: event.target.value })}
           type="text"
           placeholder="Post Title"
         />
 
         <MyInput
-          value={body}
-          onChange={(event) => setBody(event.target.value)}
+          value={post.body}
+          onChange={(event) => setPost({ ...post, body: event.target.value })}
           placeholder="Post Text"
         />
         <MyButton onClick={addNewPost}>Create Post</MyButton>
