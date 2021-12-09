@@ -4,6 +4,7 @@ import '../src/styles/App.css';
 import PostFilter from './components/PostFilter';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
+import MyModal from './components/UI/Modal/MyModal';
 
 function App() {
   const [posts, setPosts] = useState([
@@ -41,6 +42,7 @@ function App() {
 
   return (
     <div className="App">
+      <MyModal></MyModal>
       <PostForm create={createPost} />
       <hr style={{ margin: '15px 0' }} />
       <PostFilter filter={filter} setFilter={setFilter} />
