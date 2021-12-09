@@ -2,12 +2,12 @@ import React from 'react';
 import PostItem from '../components/PostItem';
 import { useState } from 'react';
 
-function PostList({ posts, title }) {
+function PostList({ posts, title, remove }) {
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>{title}</h1>
       {posts.map((post, index) => {
-        return <PostItem number={index + 1} post={post} key={post.id} />;
+        return <PostItem remove={remove} number={index + 1} post={post} key={post.id} />;
       })}
     </div>
   );
