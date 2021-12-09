@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import '../src/styles/App.css';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
@@ -29,15 +29,13 @@ function App() {
     setSelectedSort(sort);
   };
 
-  const getSortedPosts = () => {
-    console.log('Working on every component rerender!!!');
+  const sortedPosts = useMemo(() => {
+    console.log('Working on memoized function!');
     if (selectedSort) {
       return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]));
     }
     return posts;
-  };
-
-  const sortedPosts = getSortedPosts();
+  }, [selectedSort, posts]);
 
   return (
     <div className="App">
