@@ -42,8 +42,9 @@ function App() {
 
   return (
     <div className="App">
-      <MyModal></MyModal>
-      <PostForm create={createPost} />
+      <MyModal>
+        <PostForm create={createPost} />
+      </MyModal>
       <hr style={{ margin: '15px 0' }} />
       <PostFilter filter={filter} setFilter={setFilter} />
 
