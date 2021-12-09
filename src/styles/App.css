@@ -30,16 +30,16 @@
 
 /* For React Transition */
 .post-enter {
-  opacity: 0;
+  transform: translateX(350px);
 }
 .post-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
+  transform: translateX(0px);
+  transition: all 500ms ease-in;
 }
 .post-exit {
   opacity: 1;
 }
 .post-exit-active {
-  opacity: 0;
-  transition: opacity 500ms ease-in;
+  transform: translateX(-400px);
+  transition: all 500ms ease-in;
 }
