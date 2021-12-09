@@ -7,10 +7,10 @@ import MySelect from './components/UI/Select/MySelect';
 
 function App() {
   const [posts, setPosts] = useState([
-    { id: 1, title: 'JavaScript', body: 'Great Language' },
-    { id: 2, title: 'Python', body: 'BackEnd Language' },
-    { id: 3, title: 'C#', body: 'Language for .NET, Unity' },
-    { id: 4, title: 'C#', body: 'Language for .NET, Unity' },
+    { id: 1, title: 'A', body: 'D' },
+    { id: 2, title: 'C', body: 'B' },
+    { id: 3, title: 'B', body: 'C' },
+    { id: 4, title: 'D', body: 'A' },
   ]);
 
   const [selectedSort, setSelectedSort] = useState('');
@@ -31,6 +31,7 @@ function App() {
 
   const sortPosts = (sort) => {
     setSelectedSort(sort);
+    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])));
     console.log(sort);
   };
 
