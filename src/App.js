@@ -30,7 +30,7 @@ function App() {
   };
 
   const getSortedPosts = () => {
-    console.log('Working');
+    console.log('Working on every component rerender!!!');
     if (selectedSort) {
       return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]));
     }
