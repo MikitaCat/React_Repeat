@@ -1,10 +1,9 @@
 import React from 'react';
 import { useState, useMemo } from 'react';
 import '../src/styles/App.css';
+import PostFilter from './components/PostFilter';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
-import MyInput from './components/UI/Input/MyInput';
-import MySelect from './components/UI/Select/MySelect';
 
 function App() {
   const [posts, setPosts] = useState([
@@ -14,8 +13,7 @@ function App() {
     { id: 4, title: 'D', body: 'A' },
   ]);
 
-  const [selectedSort, setSelectedSort] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState({ sort: '', query: '' });
 
   const createPost = (newPost) => {
     setPosts([newPost, ...posts]);
@@ -25,44 +23,27 @@ function App() {
     setPosts(posts.filter((el) => el.id !== post.id));
   };
 
-  const sortPosts = (sort) => {
-    setSelectedSort(sort);
-  };
-
   //Posts Sorting Algorithm
   const sortedPosts = useMemo(() => {
     console.log('Working on memoized function!');
-    if (selectedSort) {
-      return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]));
+    if (filter.sort) {
+      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
     }
     return posts;
-  }, [selectedSort, posts]);
+  }, [filter.sort, posts]);
 
   //Posts Finding Algorithm
   const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter((el) => el.title.toLowerCase().includes(searchQuery));
-  }, [searchQuery, sortedPosts]);
+    return sortedPosts.filter((el) =>
+      el.title.toLowerCase().includes(filter.query.toLocaleLowerCase()),
+    );
+  }, [filter.query, sortedPosts]);
 
   return (
     <div className="App">
       <PostForm create={createPost} />
       <hr style={{ margin: '15px 0' }} />
-
-      <MyInput
-        onChange={(event) => setSearchQuery(event.target.value)}
-        value={searchQuery}
-        placeholder="Search..."
-      />
-
-      <MySelect
-        value={selectedSort}
-        onChange={sortPosts}
-        defaultValue="Sorting by"
-        options={[
-          { value: 'title', name: 'By Title' },
-          { value: 'body', name: 'By Content' },
-        ]}
-      />
+      <PostFilter filter={filter} setFilter={setFilter} />
 
       {sortedAndSearchedPosts.length !== 0 ? (
         <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Posts List" />
