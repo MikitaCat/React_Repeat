@@ -3,6 +3,7 @@ import { useState } from 'react';
 import '../src/styles/App.css';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
+import MyInput from './components/UI/Input/MyInput';
 import MySelect from './components/UI/Select/MySelect';
 
 function App() {
@@ -14,12 +15,7 @@ function App() {
   ]);
 
   const [selectedSort, setSelectedSort] = useState('');
-
-  // const addNewPost = (event) => {
-  //   event.preventDefault();
-  //   setPosts([{ id: Date.now(), ...post }, ...posts]);
-  //   setPost({ title: '', body: '' });
-  // };
+  const [seachQuery, setSearchQuery] = useState('');
 
   const createPost = (newPost) => {
     setPosts([newPost, ...posts]);
@@ -31,14 +27,28 @@ function App() {
 
   const sortPosts = (sort) => {
     setSelectedSort(sort);
-    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])));
-    console.log(sort);
   };
+
+  const getSortedPosts = () => {
+    console.log('Working');
+    if (selectedSort) {
+      return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]));
+    }
+    return posts;
+  };
+
+  const sortedPosts = getSortedPosts();
 
   return (
     <div className="App">
       <PostForm create={createPost} />
       <hr style={{ margin: '15px 0' }} />
+
+      <MyInput
+        onChange={(event) => setSearchQuery(event.target.value)}
+        value={seachQuery}
+        placeholder="Search..."
+      />
 
       <MySelect
         value={selectedSort}
@@ -51,7 +61,7 @@ function App() {
       />
 
       {posts.length !== 0 ? (
-        <PostList remove={removePost} posts={posts} title="Posts List" />
+        <PostList remove={removePost} posts={sortedPosts} title="Posts List" />
       ) : (
         <h2 style={{ textAlign: 'center' }}>There aren't any posts</h2>
       )}
