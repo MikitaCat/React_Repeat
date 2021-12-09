@@ -15,7 +15,7 @@ function App() {
   ]);
 
   const [selectedSort, setSelectedSort] = useState('');
-  const [seachQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const createPost = (newPost) => {
     setPosts([newPost, ...posts]);
@@ -29,6 +29,7 @@ function App() {
     setSelectedSort(sort);
   };
 
+  //Posts Sorting Algorithm
   const sortedPosts = useMemo(() => {
     console.log('Working on memoized function!');
     if (selectedSort) {
@@ -37,6 +38,11 @@ function App() {
     return posts;
   }, [selectedSort, posts]);
 
+  //Posts Finding Algorithm
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter((el) => el.title.includes(searchQuery));
+  }, [searchQuery, sortedPosts]);
+
   return (
     <div className="App">
       <PostForm create={createPost} />
@@ -44,7 +50,7 @@ function App() {
 
       <MyInput
         onChange={(event) => setSearchQuery(event.target.value)}
-        value={seachQuery}
+        value={searchQuery}
         placeholder="Search..."
       />
 
@@ -58,8 +64,8 @@ function App() {
         ]}
       />
 
-      {posts.length !== 0 ? (
-        <PostList remove={removePost} posts={sortedPosts} title="Posts List" />
+      {sortedAndSearchedPosts.length !== 0 ? (
+        <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Posts List" />
       ) : (
         <h2 style={{ textAlign: 'center' }}>There aren't any posts</h2>
       )}
