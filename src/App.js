@@ -40,7 +40,7 @@ function App() {
 
   //Posts Finding Algorithm
   const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter((el) => el.title.includes(searchQuery));
+    return sortedPosts.filter((el) => el.title.toLowerCase().includes(searchQuery));
   }, [searchQuery, sortedPosts]);
 
   return (
