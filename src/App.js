@@ -4,6 +4,7 @@ import '../src/styles/App.css';
 import PostFilter from './components/PostFilter';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
+import MyButton from './components/UI/Button/MyButton';
 import MyModal from './components/UI/Modal/MyModal';
 
 function App() {
@@ -15,9 +16,11 @@ function App() {
   ]);
 
   const [filter, setFilter] = useState({ sort: '', query: '' });
+  const [modal, setModal] = useState(false);
 
   const createPost = (newPost) => {
     setPosts([newPost, ...posts]);
+    setModal(false);
   };
 
   const removePost = (post) => {
@@ -40,12 +43,20 @@ function App() {
     );
   }, [filter.query, sortedPosts]);
 
+  // const closeModalWindow = (bool) => {
+  //   setModal(bool);
+  // };
+
   return (
     <div className="App">
-      <MyModal visible={true}>
+      <MyButton onClick={() => setModal(true)}>Create New Post</MyButton>
+
+      <MyModal visible={modal} setVisible={setModal}>
         <PostForm create={createPost} />
       </MyModal>
+
       <hr style={{ margin: '15px 0' }} />
+
       <PostFilter filter={filter} setFilter={setFilter} />
 
       {sortedAndSearchedPosts.length !== 0 ? (
