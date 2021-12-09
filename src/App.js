@@ -42,7 +42,7 @@ function App() {
 
   return (
     <div className="App">
-      <MyModal>
+      <MyModal visible={true}>
         <PostForm create={createPost} />
       </MyModal>
       <hr style={{ margin: '15px 0' }} />
