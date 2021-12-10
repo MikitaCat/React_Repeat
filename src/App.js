@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useState, useMemo, useEffect } from 'react';
 import '../src/styles/App.css';
+import { PostServise } from './API/PostServise';
 import PostFilter from './components/PostFilter';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
@@ -24,9 +25,9 @@ function App() {
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
   async function fetchPosts() {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-    console.log(response.data);
-    setPosts(response.data);
+    const posts = await PostServise.getAll();
+    console.log(posts);
+    setPosts(posts);
   }
 
   const createPost = (newPost) => {
