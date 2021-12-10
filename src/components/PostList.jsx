@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 function PostList({ posts, title, remove }) {
+  if (!posts.length) {
+    return <h2 style={{ textAlign: 'center' }}>There aren't any posts</h2>;
+  }
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>{title}</h1>

@@ -15,6 +15,7 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const [modal, setModal] = useState(false);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
 
   //Call this when page rendered and load the array of posts
   useEffect(() => {
@@ -25,9 +26,10 @@ function App() {
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
   async function fetchPosts() {
+    setIsPostsLoading(true);
     const posts = await PostServise.getAll();
-    console.log(posts);
     setPosts(posts);
+    setIsPostsLoading(false);
   }
 
   const createPost = (newPost) => {
@@ -56,12 +58,7 @@ function App() {
       <hr style={{ margin: '15px 0' }} />
 
       <PostFilter filter={filter} setFilter={setFilter} />
-
-      {sortedAndSearchedPosts.length !== 0 ? (
-        <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Posts List" />
-      ) : (
-        <h2 style={{ textAlign: 'center' }}>There aren't any posts</h2>
-      )}
+      <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Posts List" />
     </div>
   );
 }
