@@ -51,6 +51,7 @@ function App() {
 
       <hr style={{ margin: '15px 0' }} />
       <PostFilter filter={filter} setFilter={setFilter} />
+      {postError && <h2 style={{ textAlign: 'center', color: 'red' }}>{postError}</h2>}
       {!isPostsLoading ? (
         <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Posts List" />
       ) : (
