@@ -6,6 +6,7 @@ import PostForm from './components/PostForm';
 import PostList from './components/PostList';
 import MyButton from './components/UI/Button/MyButton';
 import MyModal from './components/UI/Modal/MyModal';
+import { usePosts } from './hooks/usePosts';
 
 function App() {
   const [posts, setPosts] = useState([
@@ -15,8 +16,12 @@ function App() {
     { id: 4, title: 'D', body: 'A' },
   ]);
 
+  //React Hooks
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const [modal, setModal] = useState(false);
+
+  //User Hooks
+  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
   const createPost = (newPost) => {
     setPosts([newPost, ...posts]);
@@ -26,22 +31,6 @@ function App() {
   const removePost = (post) => {
     setPosts(posts.filter((el) => el.id !== post.id));
   };
-
-  //Posts Sorting Algorithm
-  const sortedPosts = useMemo(() => {
-    console.log('Working on memoized function!');
-    if (filter.sort) {
-      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
-    }
-    return posts;
-  }, [filter.sort, posts]);
-
-  //Posts Finding Algorithm
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter((el) =>
-      el.title.toLowerCase().includes(filter.query.toLocaleLowerCase()),
-    );
-  }, [filter.query, sortedPosts]);
 
   // const closeModalWindow = (bool) => {
   //   setModal(bool);
