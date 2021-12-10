@@ -7,6 +7,7 @@ import PostFilter from './components/PostFilter';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
 import MyButton from './components/UI/Button/MyButton';
+import Loader from './components/UI/Loader/Loader';
 import MyModal from './components/UI/Modal/MyModal';
 import { usePosts } from './hooks/usePosts';
 
@@ -28,8 +29,8 @@ function App() {
   async function fetchPosts() {
     setIsPostsLoading(true);
     const posts = await PostServise.getAll();
-    setPosts(posts);
     setIsPostsLoading(false);
+    setPosts(posts);
   }
 
   const createPost = (newPost) => {
@@ -56,9 +57,14 @@ function App() {
       </MyModal>
 
       <hr style={{ margin: '15px 0' }} />
-
       <PostFilter filter={filter} setFilter={setFilter} />
-      <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Posts List" />
+      {!isPostsLoading ? (
+        <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Posts List" />
+      ) : (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '70px' }}>
+          <Loader />
+        </div>
+      )}
     </div>
   );
 }
