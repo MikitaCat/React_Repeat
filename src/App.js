@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import '../src/styles/App.css';
 import PostFilter from './components/PostFilter';
 import PostForm from './components/PostForm';
@@ -14,6 +14,12 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const [modal, setModal] = useState(false);
+
+  //Call this when page rendered and load the array of posts
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   //User Hooks
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
@@ -38,7 +44,6 @@ function App() {
 
   return (
     <div className="App">
-      <MyButton onClick={fetchPosts}>Get Posts</MyButton>
       <MyButton onClick={() => setModal(true)} style={{ marginTop: '30px' }}>
         Create New Post
       </MyButton>
