@@ -1,6 +1,5 @@
-import axios from 'axios';
 import React from 'react';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../src/styles/App.css';
 import { PostServise } from './API/PostServise';
 import PostFilter from './components/PostFilter';
@@ -9,6 +8,7 @@ import PostList from './components/PostList';
 import MyButton from './components/UI/Button/MyButton';
 import Loader from './components/UI/Loader/Loader';
 import MyModal from './components/UI/Modal/MyModal';
+import { useFetching } from './hooks/useFetching';
 import { usePosts } from './hooks/usePosts';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ sort: '', query: '' });
   const [modal, setModal] = useState(false);
-  const [isPostsLoading, setIsPostsLoading] = useState(false);
+  // const [isPostsLoading, setIsPostsLoading] = useState(false);
 
   //Call this when page rendered and load the array of posts
   useEffect(() => {
@@ -25,13 +25,10 @@ function App() {
 
   //User Hooks
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
-
-  async function fetchPosts() {
-    setIsPostsLoading(true);
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
     const posts = await PostServise.getAll();
-    setIsPostsLoading(false);
     setPosts(posts);
-  }
+  });
 
   const createPost = (newPost) => {
     setPosts([newPost, ...posts]);
@@ -41,10 +38,6 @@ function App() {
   const removePost = (post) => {
     setPosts(posts.filter((el) => el.id !== post.id));
   };
-
-  // const closeModalWindow = (bool) => {
-  //   setModal(bool);
-  // };
 
   return (
     <div className="App">
